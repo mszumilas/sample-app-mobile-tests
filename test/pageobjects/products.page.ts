@@ -7,8 +7,14 @@ class ProductsPage extends Page {
         return $('~test-PRODUCTS');
     }
 
-    public get productItem () {
-        return $(`TextView[@content-desc="test-Item title" and @text="Sauce Labs Bike Light"]`)
+    public getProductItemAddCartBtn (productName: string) {
+        return $(`//android.view.ViewGroup[@content-desc="test-Item"]
+    [./android.view.ViewGroup//android.widget.TextView[@text="${productName}"]]
+    //android.view.ViewGroup[@content-desc="test-ADD TO CART"]`);
+    }
+
+    public get cartIcon () {
+        return $('~test-Cart')
     }
 
     public async waitForProductsPageLoaded(): Promise<void> {
@@ -16,6 +22,15 @@ class ProductsPage extends Page {
             timeout: 10000,
             timeoutMsg: 'Products page did not load within 10s'
         })
+    }
+    public async addProductToCartByName(productName: string) {
+        const addToCartButton = await this.getProductItemAddCartBtn(productName);
+        await addToCartButton.waitForDisplayed({ timeout: 10000 });
+        await addToCartButton.click();;
+    }
+    public async goToCart() {
+        await this.cartIcon.waitForDisplayed();
+        await this.cartIcon.click();
     }
 }
 
