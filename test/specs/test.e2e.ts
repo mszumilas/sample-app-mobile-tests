@@ -3,6 +3,7 @@ import LoginPage from '../pageobjects/login.page'
 import ProductsPage from '../pageobjects/products.page'
 import CartPage from '../pageobjects/cart.page'
 import CheckoutPage from '../pageobjects/checkout.page'
+import {scrollToElementByText} from '../helpers/androidGesturesHelper'
 
 describe('Swag Labs application', () => {
     it('should buy a product', async () => {
@@ -26,17 +27,18 @@ describe('Swag Labs application', () => {
         await CheckoutPage.clickContinueBtn();
         
         await CheckoutPage.waitForCheckoutOverviewPageLoaded();
-        await expect(CheckoutPage.getProductDescription()).toContain(productName)
-        await expect(await CheckoutPage.checkoutOverviewPage.getText()).toContain('SauceCard #31337')
-        await expect(await CheckoutPage.checkoutOverviewPage.getText()).toContain('FREE PONY EXPRESS DELIVERY!')
-        await expect(await CheckoutPage.checkoutOverviewPage.getText()).toContain('Item total: $9.99')
-        await expect(await CheckoutPage.checkoutOverviewPage.getText()).toContain('Tax: $0.80')
-        await expect(await CheckoutPage.checkoutOverviewPage.getText()).toContain('Total: $10.79')
+        await expect(await CheckoutPage.isProductDescriptionContains(productName)).toBe(true), `❌ Expected product description to contain "${productName}"`;
+        await expect(await CheckoutPage.isOverviewInformationContains('SauceCard #31337')).toBe(true, '❌ Expected overview info to contain "SauceCard #31337"');
+        await expect(await CheckoutPage.isOverviewInformationContains('FREE PONY EXPRESS DELIVERY!')).toBe(true, '❌ Expected overview info to contain "FREE PONY EXPRESS DELIVERY!"');
+        await expect(await CheckoutPage.isOverviewInformationContains('Item total: $9.99')).toBe(true, '❌ Expected overview info to contain "Item total: $9.99"');
+        await expect(await CheckoutPage.isOverviewInformationContains('Tax: $0.80')).toBe(true, '❌ Expected overview info to contain "Tax: $0.80"');
+        await scrollToElementByText('Total: $10.79');
+        await expect(await CheckoutPage.isOverviewInformationContains('Total: $10.79')).toBe(true, '❌ Expected "Total: $10.79" to be present in the Checkout Overview section');
         
         await CheckoutPage.clickFinishBtn();
         await CheckoutPage.waitForCheckoutCompletePageLoaded()
-        await expect(await CheckoutPage.checkoutCompletePage.getText()).toContain('THANK YOU FOR YOU ORDER')
-        await expect(await CheckoutPage.checkoutCompletePage.getText()).toContain('Your order has been dispatched, and will arrive just as fast as the pony can get there!')
+        await expect(await CheckoutPage.isOverviewCompleteContains('THANK YOU FOR YOU ORDER')).toBe(true, '❌ Expected "THANK YOU FOR YOU ORDER" to be present in the Checkout Overview section')
+        await expect(await CheckoutPage.isOverviewCompleteContains('Your order has been dispatched, and will arrive just as fast as the pony can get there!')).toBe(true, '❌ Expected "Your order has been dispatched, and will arrive just as fast as the pony can get there!" to be present in the Checkout Overview section')
     })
 })
 

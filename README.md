@@ -46,6 +46,14 @@ If installed globally:
 ```bash
 appium
 ```
+Check available emulators:
+```bash
+emulator -list-avds
+```
+Run emulator:
+```bash
+emulator -avd <name of available emulator>
+```
 Run tests:
 ```bash
 npm run test

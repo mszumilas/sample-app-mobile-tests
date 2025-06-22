@@ -1,5 +1,6 @@
 import { $ } from '@wdio/globals'
 import Page from "./page";
+import { realpathSync } from 'fs';
 
 class CheckoutPage extends Page {
     finishBtnSelector = '~test-FINISH';
@@ -48,10 +49,19 @@ class CheckoutPage extends Page {
         await this.finishBtn.click();
     }
 
-    public async getProductDescription() {
+    public async isProductDescriptionContains(descriptionText: string) {
         const description = await this.productDescription;
-        const text = await description.getText();
-        return text;
+        return this.isElementsTextViewContains(description, descriptionText);
+    }
+
+    public async isOverviewInformationContains(information: string): Promise<boolean> {
+        const checkoutOverview = await this.checkoutOverviewPage;
+        return this.isElementsTextViewContains(checkoutOverview, information)
+    }
+
+    public async isOverviewCompleteContains(text: string): Promise<boolean> {
+        const completeElement = await this.checkoutCompletePage;
+        return this.isElementsTextViewContains(completeElement, text);
     }
 
     public async waitForCheckoutOverviewPageLoaded(): Promise<void> {
