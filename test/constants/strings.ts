@@ -20,11 +20,7 @@ export const Strings = {
         orderInformationMessage: 'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
     },
     assertions: {
-        shouldContainText: 'expected to contain',
-        expectedOverviewText: '❌ Expected overview info to contain',
-        expectedDescriptionText: '❌ Expected product description to contain',
-        expectedOverviewCompleteText: '❌ Expected overview complete to contain',
-        expectedCartLabel: '❌ Expected cart label to contain'
+        shouldContainText: 'should contain',
     },
     elements: {
         productsPage: 'Product page',
@@ -32,6 +28,14 @@ export const Strings = {
         productOverview: ' Product overview',
         productComplete: ' Product overview complete',
         productsInfo: 'Product info',
-        cartLabel: 'Cart label'
+        cartLabel: 'Cart label',
+        errorMessage: 'Error message'
+    },
+    errors: {
+        userNameReq: 'Username is required',
+        passwordReq: 'Password is required',
+        firstNameReq: 'First Name is required',
+        lastNameReq: 'Last Name is required',
+        zipPostalCodeReq: 'Postal Code is required'
     }
 }

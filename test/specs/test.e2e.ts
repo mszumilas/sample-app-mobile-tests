@@ -1,15 +1,20 @@
-import { expect } from '@wdio/globals'
+import { browser, expect } from '@wdio/globals'
 import LoginPage from '../pageobjects/login.page'
 import ProductsPage from '../pageobjects/products.page'
 import CartPage from '../pageobjects/cart.page'
 import CheckoutPage from '../pageobjects/checkout.page'
 import { Strings } from '../constants/strings'
 import { ScrollActions } from '../helpers/scrollActions'
+const caps = (browser as any).capabilities
+const username = caps['appium:username'];
+const password = caps['appium:password'];
 
 describe('Swag Labs application', () => {
     it('should buy a product', async () => {
+        console.log(username)
+        console.log(password)
         await LoginPage.waitForLoginPageLoaded();
-        await LoginPage.login('standard_user', 'secret_sauce');
+        await LoginPage.login(username, password);
         await expect(ProductsPage.productsPage).toBeExisting();
 
         await ProductsPage.waitForProductsPageLoaded();
@@ -43,5 +48,17 @@ describe('Swag Labs application', () => {
         await CheckoutPage.assertIfOverviewCompleteContains(Strings.checkout.orderInformationMessage);
     })
 })
+
+// describe('Validation error messages for empty required fields', () => {
+//     it('should validate login fields', async() => {
+//         await LoginPage.waitForLoginPageLoaded();
+//         await LoginPage.clickLoginButton();
+//         await LoginPage.assertIfErrorMessageTextContains(Strings.errors.userNameReq);
+//         await LoginPage.fillLogin(username);
+//         await LoginPage.clickLoginButton();
+//         await browser.pause(5000)
+//         await LoginPage.assertIfErrorMessageTextContains(Strings.errors.passwordReq);
+//     })
+// })
 
 

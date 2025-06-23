@@ -5,8 +5,7 @@ export class ElementActions {
         await element.click();
     }
 
-    static async isElementDisplayed(locator: string): Promise<boolean> {
-        const element = await $(locator);
+    static async isElementDisplayed(element: WebdriverIO.Element): Promise<boolean> {
         return element.isDisplayed();
     }
 

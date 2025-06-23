@@ -1,13 +1,8 @@
 import { $ } from '@wdio/globals'
 import Page from './page';
+import { ElementActions } from '../helpers/elementActions';
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
     public get loginPage () {
         return $('~test-Login');
     }
@@ -27,13 +22,9 @@ class LoginPage extends Page {
         return $("~test-standard_user");
     }
 
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
     public async login (username: string, password: string) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
+        await this.fillLogin(username);
+        await this.fillPassword(password);
         await this.btnLogin.click();
     }
 
@@ -47,6 +38,15 @@ class LoginPage extends Page {
             timeout: 10000,
             timeoutMsg: 'Login page did not load within 10s'
         })
+    }
+    async clickLoginButton() {
+        await ElementActions.clickElement(await this.btnLogin);
+    }
+    async fillLogin(username) {
+        (await this.inputUsername).setValue(username);
+    }
+    async fillPassword(password) {
+        (await this.inputPassword).setValue(password);
     }
 }
 

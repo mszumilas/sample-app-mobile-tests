@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
-    "types": ["node", "@wdio/globals/types"],
+    "types": ["@wdio/globals/types", "node"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
+    "paths": {
+      "@pages/*": ["./pageobjects/*"],
+      "@helpers/*": ["./helpers/*"],
+    },
     "outDir": "./dist"
   },
-  "include": ["./tests/**/*.ts", "./pageobjects/**/*.ts"],
-  "exclude": ["dist"]
+  "include": ["./tests/**/*.ts", "./pageobjects/**/*.ts", "./wdio.conf.ts", "./helpers/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
 }
