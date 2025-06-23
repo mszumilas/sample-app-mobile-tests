@@ -1,5 +1,9 @@
 import { $ } from '@wdio/globals'
 import Page from "./page";
+import { ElementActions } from '../helpers/elementActions';
+import { WaitActions } from '../helpers/waitActions';
+import { Strings } from '../constants/strings';
+import { AssertionsHelper } from '../helpers/assertionsHelper';
 
 class ProductsPage extends Page {
     
@@ -18,19 +22,20 @@ class ProductsPage extends Page {
     }
 
     public async waitForProductsPageLoaded(): Promise<void> {
-        await this.productsPage.waitForDisplayed({
-            timeout: 10000,
-            timeoutMsg: 'Products page did not load within 10s'
-        })
+        await WaitActions.waitForElement(this.productsPage, Strings.products.productPage)
     }
+    
     public async addProductToCartByName(productName: string) {
         const addToCartButton = await this.getProductItemAddCartBtn(productName);
-        await addToCartButton.waitForDisplayed({ timeout: 10000 });
-        await addToCartButton.click();;
+        await ElementActions.clickElement(addToCartButton);
     }
     public async goToCart() {
-        await this.cartIcon.waitForDisplayed();
-        await this.cartIcon.click();
+        await ElementActions.clickElement(this.cartIcon);
+    }
+
+    public async assertIfCartHasLabelWithNumberOfProducts(numberOfProducts: string) {
+        const cart = await this.cartIcon;
+        AssertionsHelper.assertIfElementTextViewsContain(cart, Strings.elements.cartLabel, numberOfProducts);
     }
 }
 
