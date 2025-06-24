@@ -2,7 +2,6 @@ import { $ } from '@wdio/globals'
 import Page from "./page";
 import { ElementActions } from '../helpers/elementActions';
 import { ScrollActions } from '../helpers/scrollActions';
-import { AssertionError } from 'assert';
 import { AssertionsHelper } from '../helpers/assertionsHelper';
 import { Strings } from '../constants/strings';
 import { WaitActions } from '../helpers/waitActions';
@@ -49,23 +48,32 @@ class CheckoutPage extends Page {
         await ElementActions.clickElement(this.continueBtn);
     }
     public async clickFinishBtn() {
-        await ScrollActions.scrollToAccessibilityId(this.finishBtn)
+        await ScrollActions.scrollToElement(this.finishBtn)
         await ElementActions.clickElement(this.finishBtn);
     }
 
     public async assertIfProductDescriptionContains(expectedText: string) {
         const description = await this.productDescription;
-        AssertionsHelper.assertIfElementTextViewsContain(description, Strings.elements.productDescription, expectedText);
+        await AssertionsHelper.assertIfElementTextViewsContain(
+            description, 
+            Strings.elements.productDescription, 
+            expectedText);
     }
 
     public async assertIfOverviewInformationContains(expectedText: string) {
         const checkoutOverview = await this.checkoutOverviewPage;
-        await AssertionsHelper.assertIfElementTextViewsContain(checkoutOverview, Strings.elements.checkoutOverview, expectedText);
+        await AssertionsHelper.assertIfElementTextViewsContain(
+            checkoutOverview, 
+            Strings.elements.checkoutOverview, 
+            expectedText);
     }
 
     public async assertIfOverviewCompleteContains(expectedText: string) {
         const completeElement = await this.checkoutCompletePage;
-        await AssertionsHelper.assertIfElementTextViewsContain(completeElement, Strings.elements.checkoutComplete, expectedText);
+        await AssertionsHelper.assertIfElementTextViewsContain(
+            completeElement, 
+            Strings.elements.checkoutComplete, 
+            expectedText);
     }
 
     public async waitForCheckoutOverviewPageLoaded(): Promise<void> {

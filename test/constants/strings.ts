@@ -3,7 +3,15 @@ import productsPage from "../pageobjects/products.page";
 export const Strings = {
     products: {
         productPage: 'Product page',
-        productName: 'Sauce Labs Bike Light'
+        productName: 'Sauce Labs Bike Light',
+        productName1: 'Sauce Labs Backpack',
+        productName2: 'Sauce Labs Bolt T-Shirt'
+    },
+    sorting: {
+        nameAtoZ: 'Name (A to Z)',
+        nameZtoA: 'Name (Z to A)',
+        priceLowToHigh: 'Price (low to high)',
+        priceHighToLow: 'Price (high to low)'
     },
     customer: {
         firstName: 'Test',
@@ -19,9 +27,6 @@ export const Strings = {
         thankYouMessage: 'THANK YOU FOR YOU ORDER',
         orderInformationMessage: 'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
     },
-    assertions: {
-        shouldContainText: 'should contain',
-    },
     elements: {
         productsPage: 'Product page',
         productDescription: 'Product description',
@@ -30,7 +35,8 @@ export const Strings = {
         checkoutInfo: 'Checkout information page',
         productsInfo: 'Product info',
         cartLabel: 'Cart label',
-        errorMessage: 'Error message'
+        errorMessage: 'Error message',
+        loginPage: 'Login page'
     },
     errors: {
         userNameReq: 'Username is required',

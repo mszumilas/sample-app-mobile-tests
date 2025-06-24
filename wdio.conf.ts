@@ -1,4 +1,4 @@
-import { browser } from '@wdio/globals';
+import { $, browser, driver } from '@wdio/globals';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -58,6 +58,8 @@ export const config: WebdriverIO.Config = {
             await browser.saveScreenshot(screenshotPath);
             console.log(`📸 Screenshot saved: ${screenshotPath}`);
         }
+        await driver.terminateApp('com.swaglabsmobileapp', {});
+        await driver.activateApp('com.swaglabsmobileapp');
     },
     after: async function (result, capabilities, specs) {
         console.log('Test suite finished.');

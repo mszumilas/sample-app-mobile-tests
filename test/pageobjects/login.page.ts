@@ -1,10 +1,13 @@
 import { $ } from '@wdio/globals'
 import Page from './page';
 import { ElementActions } from '../helpers/elementActions';
+import { WaitActions } from '../helpers/waitActions';
+import { Strings } from '../constants/strings';
+import { ScrollActions } from '../helpers/scrollActions';
 
 class LoginPage extends Page {
     public get loginPage () {
-        return $('~test-Login');
+        return '~test-Login';
     }
     public get inputUsername () {
         return $('~test-Username');
@@ -29,15 +32,13 @@ class LoginPage extends Page {
     }
 
     public async loginWithPredefinedStandardUser() {
+        await ScrollActions.scrollToElement(this.standardUserLink);
         await ElementActions.clickElement(this.standardUserLink);
         await ElementActions.clickElement(this.btnLogin);
     }
 
     public async waitForLoginPageLoaded(): Promise<void> {
-        await this.loginPage.waitForDisplayed({
-            timeout: 10000,
-            timeoutMsg: 'Login page did not load within 10s'
-        })
+        await WaitActions.waitForElement(this.loginPage, Strings.elements.loginPage)
     }
     async clickLoginButton() {
         await ElementActions.clickElement(this.btnLogin);

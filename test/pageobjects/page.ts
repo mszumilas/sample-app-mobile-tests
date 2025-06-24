@@ -9,6 +9,9 @@ export default class BasePage {
 
     async assertIfErrorMessageTextContains(errorText: string) {
         AssertionsHelper.assertIfElementIsDisplayed(this.errorMessage, Strings.elements.errorMessage);
-        AssertionsHelper.assertIfElementTextViewsContain(this.errorMessage, Strings.elements.errorMessage, errorText);
+        const isContaining = await AssertionsHelper.assertIfElementTextViewsContain(
+            this.errorMessage, 
+            Strings.elements.errorMessage, 
+            errorText);
     }
 }

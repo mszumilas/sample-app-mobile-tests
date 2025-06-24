@@ -3,16 +3,20 @@ import Page from "./page";
 import { ElementActions } from '../helpers/elementActions';
 
 class CartPage extends Page {
-    public get cartPage () {
+    private get cartPage () {
         return $('~test-Cart Content')
     }
 
-    public get checkoutBtn () {
+    private get checkoutBtn () {
         return '~test-CHECKOUT'
     }
 
-    get cartItem () {
+    private get cartItem () {
       return $$('~test-Item')
+    }
+
+    private get removeButton() {
+      return '~test-REMOVE'
     }
 
     public getCartItemByName(productName) {
@@ -35,6 +39,10 @@ class CartPage extends Page {
     public async assertCartItemsNumber(itemsNumber: number) {
       const actual = await this.getCartItemsNumber();
       expect(actual).toBe(itemsNumber);
+    }
+
+    public async clickRemoveButton() {
+      await ElementActions.clickElement(this.removeButton);
     }
 }
 export default new CartPage();
