@@ -4,7 +4,7 @@ import { Strings } from '../constants/strings'
 export default class BasePage {
 
     get errorMessage() {
-        return $('~test-Error message')
+        return '~test-Error message'
     }
 
     async assertIfErrorMessageTextContains(errorText: string) {

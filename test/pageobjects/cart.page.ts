@@ -1,5 +1,6 @@
 import { $, $$, expect } from '@wdio/globals'
 import Page from "./page";
+import { ElementActions } from '../helpers/elementActions';
 
 class CartPage extends Page {
     public get cartPage () {
@@ -7,7 +8,7 @@ class CartPage extends Page {
     }
 
     public get checkoutBtn () {
-        return $('~test-CHECKOUT')
+        return '~test-CHECKOUT'
     }
 
     get cartItem () {
@@ -20,8 +21,7 @@ class CartPage extends Page {
     }
 
     public async goToCheckout() {
-        await this.checkoutBtn.waitForDisplayed();
-        await this.checkoutBtn.click();
+        await ElementActions.clickElement(this.checkoutBtn);
     }
     
     public async waitForCartPageLoaded() {

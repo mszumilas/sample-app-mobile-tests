@@ -5,9 +5,9 @@ import { ScrollActions } from '../helpers/scrollActions';
 import { AssertionError } from 'assert';
 import { AssertionsHelper } from '../helpers/assertionsHelper';
 import { Strings } from '../constants/strings';
+import { WaitActions } from '../helpers/waitActions';
 
 class CheckoutPage extends Page {
-    finishBtnSelector = '~test-FINISH';
     public get firstNameInput() {
         return $('~test-First Name')
     }
@@ -18,22 +18,22 @@ class CheckoutPage extends Page {
         return $('~test-Zip/Postal Code')
     }
     public get continueBtn() {
-        return $('~test-CONTINUE')
+        return '~test-CONTINUE'
     }
     public get checkoutOverviewPage() {
-        return $('~test-CHECKOUT: OVERVIEW')
+        return '~test-CHECKOUT: OVERVIEW'
     }
     public get checkoutCompletePage() {
-        return $('~test-CHECKOUT: COMPLETE!')
+        return '~test-CHECKOUT: COMPLETE!'
     }
     public get checkoutInformationPage() {
-        return $('~test-Checkout: Your Info')
+        return '~test-Checkout: Your Info'
     }
     public get productDescription() {
-        return $('~test-Description')
+        return '~test-Description'
     }
     public get finishBtn() {
-        return $(`${this.finishBtnSelector}`)
+        return '~test-FINISH'
     }
 
     public async setFirstName(firstName: string) {
@@ -49,42 +49,33 @@ class CheckoutPage extends Page {
         await ElementActions.clickElement(this.continueBtn);
     }
     public async clickFinishBtn() {
-        await ScrollActions.scrollToAccessibilityId(this.finishBtnSelector)
+        await ScrollActions.scrollToAccessibilityId(this.finishBtn)
         await ElementActions.clickElement(this.finishBtn);
     }
 
     public async assertIfProductDescriptionContains(expectedText: string) {
         const description = await this.productDescription;
-        AssertionsHelper.assertIfElementTextViewsContain(description, Strings.elements.productDescription, expectedText)
+        AssertionsHelper.assertIfElementTextViewsContain(description, Strings.elements.productDescription, expectedText);
     }
 
     public async assertIfOverviewInformationContains(expectedText: string) {
         const checkoutOverview = await this.checkoutOverviewPage;
-        await AssertionsHelper.assertIfElementTextViewsContain(checkoutOverview, Strings.elements.productOverview, expectedText)
+        await AssertionsHelper.assertIfElementTextViewsContain(checkoutOverview, Strings.elements.checkoutOverview, expectedText);
     }
 
     public async assertIfOverviewCompleteContains(expectedText: string) {
         const completeElement = await this.checkoutCompletePage;
-        await AssertionsHelper.assertIfElementTextViewsContain(completeElement, Strings.elements.productComplete, expectedText);
+        await AssertionsHelper.assertIfElementTextViewsContain(completeElement, Strings.elements.checkoutComplete, expectedText);
     }
 
     public async waitForCheckoutOverviewPageLoaded(): Promise<void> {
-        await this.checkoutOverviewPage.waitForDisplayed({
-            timeout: 10000,
-            timeoutMsg: 'Checkout overview page did not load within 10s'
-        })
+        await WaitActions.waitForElement(this.checkoutOverviewPage, Strings.elements.checkoutOverview);
     }
     public async waitForCheckoutInformationPageLoaded(): Promise<void> {
-        await this.checkoutInformationPage.waitForDisplayed({
-            timeout: 10000,
-            timeoutMsg: 'Checkout information page did not load within 10s'
-        })
+        await WaitActions.waitForElement(this.checkoutInformationPage, Strings.elements.checkoutInfo);
     }
     public async waitForCheckoutCompletePageLoaded(): Promise<void> {
-        await this.checkoutCompletePage.waitForDisplayed({
-            timeout: 10000,
-            timeoutMsg: 'Checkout complete page did not load within 10s'
-        })
+        await WaitActions.waitForElement(this.checkoutCompletePage, Strings.elements.checkoutComplete);
     }
 }
 export default new CheckoutPage();

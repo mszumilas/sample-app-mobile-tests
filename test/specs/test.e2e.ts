@@ -6,8 +6,8 @@ import CheckoutPage from '../pageobjects/checkout.page'
 import { Strings } from '../constants/strings'
 import { ScrollActions } from '../helpers/scrollActions'
 const caps = (browser as any).capabilities
-const username = caps['appium:username'];
-const password = caps['appium:password'];
+const username = caps['username'];
+const password = caps['password'];
 
 describe('Swag Labs application', () => {
     it('should buy a product', async () => {
@@ -49,16 +49,15 @@ describe('Swag Labs application', () => {
     })
 })
 
-// describe('Validation error messages for empty required fields', () => {
-//     it('should validate login fields', async() => {
-//         await LoginPage.waitForLoginPageLoaded();
-//         await LoginPage.clickLoginButton();
-//         await LoginPage.assertIfErrorMessageTextContains(Strings.errors.userNameReq);
-//         await LoginPage.fillLogin(username);
-//         await LoginPage.clickLoginButton();
-//         await browser.pause(5000)
-//         await LoginPage.assertIfErrorMessageTextContains(Strings.errors.passwordReq);
-//     })
-// })
+describe('Validation error messages for empty required fields', () => {
+    it('should validate login fields', async() => {
+        await LoginPage.waitForLoginPageLoaded();
+        await LoginPage.clickLoginButton();
+        await LoginPage.assertIfErrorMessageTextContains(Strings.errors.userNameReq);
+        await LoginPage.fillLogin(username);
+        await LoginPage.clickLoginButton();
+        await LoginPage.assertIfErrorMessageTextContains(Strings.errors.passwordReq);
+    })
+})
 
 

@@ -25,8 +25,9 @@ export const Strings = {
     elements: {
         productsPage: 'Product page',
         productDescription: 'Product description',
-        productOverview: ' Product overview',
-        productComplete: ' Product overview complete',
+        checkoutOverview: 'Checkout overview page',
+        checkoutComplete: 'Checkout overview complete page',
+        checkoutInfo: 'Checkout information page',
         productsInfo: 'Product info',
         cartLabel: 'Cart label',
         errorMessage: 'Error message'

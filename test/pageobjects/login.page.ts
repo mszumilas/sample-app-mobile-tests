@@ -15,22 +15,22 @@ class LoginPage extends Page {
     }
 
     public get btnLogin () {
-        return $('~test-LOGIN');
+        return '~test-LOGIN';
     }
 
     public get standardUserLink () {
-        return $("~test-standard_user");
+        return '~test-standard_user';
     }
 
     public async login (username: string, password: string) {
         await this.fillLogin(username);
         await this.fillPassword(password);
-        await this.btnLogin.click();
+        await this.clickLoginButton();
     }
 
     public async loginWithPredefinedStandardUser() {
-        await this.standardUserLink.click();
-        await this.btnLogin.click();
+        await ElementActions.clickElement(this.standardUserLink);
+        await ElementActions.clickElement(this.btnLogin);
     }
 
     public async waitForLoginPageLoaded(): Promise<void> {
@@ -40,7 +40,7 @@ class LoginPage extends Page {
         })
     }
     async clickLoginButton() {
-        await ElementActions.clickElement(await this.btnLogin);
+        await ElementActions.clickElement(this.btnLogin);
     }
     async fillLogin(username) {
         (await this.inputUsername).setValue(username);

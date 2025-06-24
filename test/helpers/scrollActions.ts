@@ -1,4 +1,5 @@
 import { $, browser } from '@wdio/globals'
+
 export class ScrollActions {
     
   static async scrollToAccessibilityId(accessibilityId: string): Promise<void> {

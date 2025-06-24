@@ -1,4 +1,8 @@
+import { browser } from '@wdio/globals';
 import * as dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
+import type { Browser } from 'webdriverio';
 dotenv.config();
 
 export const config: WebdriverIO.Config = {
@@ -18,23 +22,12 @@ export const config: WebdriverIO.Config = {
             'appium:automationName': process.env.AUTOMATION_NAME || 'UiAutomator2',
             'appium:app': process.env.APP_PATH || 'app/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk',
             'appium:appWaitActivity': '*',
-
-            // dane logowania jako niestandardowe capabilities
             ['appium:username']: process.env.USERNAME_SWAG,
             ['appium:password']: process.env.PASSWORD_SWAG
         } as any
     ],
 
     logLevel: 'info',
-
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: './tsconfig.json'
-        }
-    },
-
     bail: 0,
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
@@ -46,6 +39,27 @@ export const config: WebdriverIO.Config = {
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
-    }
+        timeout: 60000,
+        bail: false
+    },
+
+    //hooks
+    beforeTest: async function (test, context) {
+        console.log(`Starting test: ${test.title}`);
+    },
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+        if (!passed) {
+            const sanitizedTitle = test.title.replace(/\s+/g, '_').replace(/[^\w]/g, '');
+            const screenshotsDir = path.resolve('./screenshots');
+            if (!fs.existsSync(screenshotsDir)) {
+                fs.mkdirSync(screenshotsDir, { recursive: true });
+            }
+            const screenshotPath = path.join(screenshotsDir, `${sanitizedTitle}.png`);
+            await browser.saveScreenshot(screenshotPath);
+            console.log(`📸 Screenshot saved: ${screenshotPath}`);
+        }
+    },
+    after: async function (result, capabilities, specs) {
+        console.log('Test suite finished.');
+    },
 };
