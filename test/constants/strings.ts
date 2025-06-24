@@ -3,7 +3,15 @@ import productsPage from "../pageobjects/products.page";
 export const Strings = {
     products: {
         productPage: 'Product page',
-        productName: 'Sauce Labs Bike Light'
+        productName: 'Sauce Labs Bike Light',
+        productName1: 'Sauce Labs Backpack',
+        productName2: 'Sauce Labs Bolt T-Shirt'
+    },
+    sorting: {
+        nameAtoZ: 'Name (A to Z)',
+        nameZtoA: 'Name (Z to A)',
+        priceLowToHigh: 'Price (low to high)',
+        priceHighToLow: 'Price (high to low)'
     },
     customer: {
         firstName: 'Test',
@@ -19,19 +27,22 @@ export const Strings = {
         thankYouMessage: 'THANK YOU FOR YOU ORDER',
         orderInformationMessage: 'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
     },
-    assertions: {
-        shouldContainText: 'expected to contain',
-        expectedOverviewText: '❌ Expected overview info to contain',
-        expectedDescriptionText: '❌ Expected product description to contain',
-        expectedOverviewCompleteText: '❌ Expected overview complete to contain',
-        expectedCartLabel: '❌ Expected cart label to contain'
-    },
     elements: {
         productsPage: 'Product page',
         productDescription: 'Product description',
-        productOverview: ' Product overview',
-        productComplete: ' Product overview complete',
+        checkoutOverview: 'Checkout overview page',
+        checkoutComplete: 'Checkout overview complete page',
+        checkoutInfo: 'Checkout information page',
         productsInfo: 'Product info',
-        cartLabel: 'Cart label'
+        cartLabel: 'Cart label',
+        errorMessage: 'Error message',
+        loginPage: 'Login page'
+    },
+    errors: {
+        userNameReq: 'Username is required',
+        passwordReq: 'Password is required',
+        firstNameReq: 'First Name is required',
+        lastNameReq: 'Last Name is required',
+        zipPostalCodeReq: 'Postal Code is required'
     }
 }
