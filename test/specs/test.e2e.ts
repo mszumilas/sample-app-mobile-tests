@@ -45,3 +45,52 @@ describe('Swag Labs application', () => {
 })
 
 
+        await CheckoutPage.clickContinueBtn();
+        await LoginPage.assertIfErrorMessageTextContains(Strings.errors.firstNameReq);
+        await CheckoutPage.setFirstName(Strings.customer.firstName);
+        await CheckoutPage.clickContinueBtn();
+        await LoginPage.assertIfErrorMessageTextContains(Strings.errors.lastNameReq);
+        await CheckoutPage.setLastName(Strings.customer.lastName);
+        await CheckoutPage.clickContinueBtn();
+        await LoginPage.assertIfErrorMessageTextContains(Strings.errors.zipPostalCodeReq);
+    });
+});
+
+describe('Product page tests', () => {
+    it('should sort by name', async() => {
+        await LoginPage.waitForLoginPageLoaded();
+        await LoginPage.loginWithPredefinedStandardUser();
+        await ProductsPage.waitForProductsPageLoaded();
+
+        await ProductsPage.clickSortButton();
+        await ProductsPage.sortBy(Strings.sorting.nameAtoZ);
+        await ProductsPage.assertIfProductsAreSortedByNameAToZ();
+        await ProductsPage.clickSortButton();
+        await ProductsPage.sortBy(Strings.sorting.nameZtoA);
+        await ProductsPage.assertIfProductsAreSortedByNameZToA();
+        await ProductsPage.clickSortButton();
+        await ProductsPage.sortBy(Strings.sorting.priceLowToHigh);
+        await ProductsPage.assertIfProductsAreSortedByPriceLowToHigh();
+        await ProductsPage.clickSortButton();
+        await ProductsPage.sortBy(Strings.sorting.priceHighToLow);
+        await ProductsPage.assertIfProductsAreSortedByPriceHighToLow();
+    })
+});
+
+describe('Cart page tests', () => {
+    it('should remove item from cart', async() => {
+        await LoginPage.waitForLoginPageLoaded();
+        await LoginPage.loginWithPredefinedStandardUser();
+        await ProductsPage.waitForProductsPageLoaded();
+
+        await ProductsPage.addProductToCartByName(Strings.products.productName);
+        await ProductsPage.addProductToCartByName(Strings.products.productName1);
+        await ProductsPage.goToCart();
+        await ProductsPage.assertIfCartHasLabelWithNumberOfProducts('2');
+
+        await CartPage.waitForCartPageLoaded();
+        await CartPage.clickRemoveButton();
+        await ProductsPage.waitForCartCountToChange(2);
+        await ProductsPage.assertIfCartHasLabelWithNumberOfProducts('1');
+    })
+})

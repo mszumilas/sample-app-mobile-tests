@@ -3,7 +3,14 @@ import productsPage from "../pageobjects/products.page";
 export const Strings = {
     products: {
         productPage: 'Product page',
-        productName: 'Sauce Labs Bike Light'
+        productName: 'Sauce Labs Bike Light',
+        productName1: 'Sauce Labs Backpack'
+    },
+    sorting: {
+        nameAtoZ: 'Name (A to Z)',
+        nameZtoA: 'Name (Z to A)',
+        priceLowToHigh: 'Price (low to high)',
+        priceHighToLow: 'Price (high to low)'
     },
     customer: {
         firstName: 'Test',
