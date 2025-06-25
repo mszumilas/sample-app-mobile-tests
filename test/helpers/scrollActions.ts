@@ -1,7 +1,8 @@
 import { $, browser } from '@wdio/globals'
+
 export class ScrollActions {
     
-  static async scrollToAccessibilityId(accessibilityId: string): Promise<void> {
+  static async scrollToElement(accessibilityId: string): Promise<void> {
     await (browser as any).execute('mobile: scroll', {
       strategy: 'accessibility id',
       selector: accessibilityId
