@@ -33,7 +33,8 @@ npm install
 ```
 ---
 ## ⚙️ Configuration
-Appium and WebDriverIO settings are defined in the wdio.conf.ts file. You can adjust:
+Appium and WebDriverIO settings are defined in the wdio.conf.ts file, retrieve from .env file.
+You can adjust them in .env file:
 
 - The path to your .apk file
 - Device/emulator configuration
